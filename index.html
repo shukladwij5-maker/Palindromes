@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Vault — Community Challenge</title>
+    <meta name="description" content="The community palindrome challenge. Submit. Vote. Compete. Built by Humyn Labs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+    <!-- ══ TOP BAR ══ -->
+    <header id="topbar">
+        <div class="topbar-left">
+            <div class="logo">
+                <span class="logo-bracket">[</span>PV<span class="logo-bracket">]</span>
+            </div>
+            <div class="logo-text">
+                <span class="logo-title">Palindrome Vault</span>
+                <span class="logo-sub">Community Edition</span>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                <span id="live-count">0</span> entries
+            </div>
+            <a href="https://github.com/shukladwij5-maker" target="_blank" class="made-by-btn">
+                ↗ Humyn Labs
+            </a>
+        </div>
+    </header>
+
+    <!-- ══ HERO BANNER ══ -->
+    <section id="hero">
+        <div class="hero-text">
+            <p class="hero-eyebrow">The Ultimate Community Palindrome Challenge</p>
+            <h1 class="hero-heading">Can you write a <em>palindrome</em>?</h1>
+            <p class="hero-desc">
+                A palindrome reads the same forwards and backwards.<br>
+                <strong>"racecar"</strong> · <strong>"A man, a plan, a canal: Panama"</strong> · <strong>"Never odd or even"</strong>
+            </p>
+        </div>
+        <div class="hero-stat-row">
+            <div class="hero-stat">
+                <span class="hs-num" id="stat-total">0</span>
+                <span class="hs-label">Submitted</span>
+            </div>
+            <div class="hs-divider"></div>
+            <div class="hero-stat">
+                <span class="hs-num" id="stat-unique">0</span>
+                <span class="hs-label">Unique Words</span>
+            </div>
+            <div class="hs-divider"></div>
+            <div class="hero-stat">
+                <span class="hs-num" id="stat-longest">0</span>
+                <span class="hs-label">Longest (chars)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ MAIN CONTENT ══ -->
+    <main id="content">
+
+        <!-- LEFT: Submit panel -->
+        <aside id="submit-panel">
+            <div class="panel-header">
+                <span class="ph-num">01</span>
+                <h2 class="ph-title">Submit Yours</h2>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label" for="name-input">Your Name</label>
+                <input type="text" id="name-input" class="field-input" placeholder="e.g. Naman" autocomplete="name">
+            </div>
+
+            <div class="field-group">
+                <label class="field-label" for="pal-input">Your Palindrome</label>
+                <input type="text" id="pal-input" class="field-input large" placeholder="e.g. Madam I'm Adam" autocomplete="off" spellcheck="false">
+                <div id="mirror-preview" class="mirror-preview" aria-live="polite"></div>
+            </div>
+
+            <button id="submit-btn" type="button">
+                <span id="btn-text">Submit to the Vault</span>
+                <svg id="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <div id="feedback-msg" class="feedback-msg" role="alert" aria-live="assertive"></div>
+
+            <div class="hint-block">
+                <p class="hint-label">Not sure where to start?</p>
+                <div class="hint-chips">
+                    <button class="hint-chip" data-word="racecar">racecar</button>
+                    <button class="hint-chip" data-word="level">level</button>
+                    <button class="hint-chip" data-word="civic">civic</button>
+                    <button class="hint-chip" data-word="radar">radar</button>
+                    <button class="hint-chip" data-word="Was it a car or a cat I saw">Was it a car or a cat I saw</button>
+                    <button class="hint-chip" data-word="Never odd or even">Never odd or even</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT: Community feed -->
+        <section id="feed-panel">
+            <div class="panel-header">
+                <span class="ph-num">02</span>
+                <h2 class="ph-title">The Vault</h2>
+                <div class="feed-controls">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search…">
+                    <select id="sort-select" class="sort-select">
+                        <option value="newest">Newest</option>
+                        <option value="longest">Longest</option>
+                        <option value="az">A → Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="feed-list" class="feed-list">
+                <div class="feed-loading" id="feed-loading">
+                    <div class="spinner"></div>
+                    <p>Loading the Vault…</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ══ LEADERBOARD STRIP ══ -->
+    <section id="leaderboard">
+        <div class="lb-header">
+            <h2 class="lb-title">Hall of Fame</h2>
+            <p class="lb-sub">Top contributors by submission count</p>
+        </div>
+        <div id="lb-list" class="lb-list"></div>
+    </section>
+
+    <!-- ══ FOOTER ══ -->
+    <footer id="site-footer">
+        <div class="footer-left">
+            <strong>Palindrome Vault</strong> — Crafted for the community by
+            <a href="https://github.com/shukladwij5-maker" target="_blank">Humyn Labs</a>
+        </div>
+        <div class="footer-right">
+            "Words are palindromes of thought." 
+        </div>
+    </footer>
+
+</div>
+
+<!-- Toast container -->
+<div id="toast-root" aria-live="polite"></div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script src="main.js"></script>
+</body>
+</html>
